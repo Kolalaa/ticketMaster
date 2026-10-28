@@ -22,6 +22,7 @@
     <tr>
         <th>Nom</th>
         <th>País</th>
+        <th>Gèneres</th>
         <th>Actiu</th>
         <th>Accions</th>
     </tr>
@@ -38,6 +39,7 @@
                 @else
                     <span style="color: gray;">Inactiu</span>
                 @endif
+                    {{ $artista->generes->pluck('nom')->implode(', ') }}
             </td>
             <td>
                 <a href="{{ route('artistes.show', $artista) }}">
@@ -53,7 +55,7 @@
         </tr>
     @empty
         <tr>
-            <td colspan="4">No hi ha artistes registrats.</td>
+            <td colspan="5">No hi ha artistes registrats.</td>
         </tr>
     @endforelse
     </tbody>

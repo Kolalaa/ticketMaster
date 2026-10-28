@@ -45,6 +45,18 @@
 </p>
 
 <p>
+    <strong>Gèneres:</strong>
+
+    @forelse ($artista->generes as $genere)
+        <span>{{ $genere->nom }}</span>
+        @if (!$loop->last), @endif
+    @empty
+        Sense gèneres assignats
+    @endforelse
+</p>
+
+
+<p>
     <strong>Creat:</strong>
     {{ $artista->created_at }}
 </p>

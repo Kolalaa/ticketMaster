@@ -114,6 +114,40 @@
 
     <br>
 
+    <div>
+        <strong>Gèneres:</strong>
+
+        @foreach ($generes as $genere)
+            <div>
+                <input
+                        type="checkbox"
+                        id="genere_{{ $genere->id }}"
+                        name="generes[]"
+                        value="{{ $genere->id }}"
+                        @checked(in_array(
+                            $genere->id,
+                            old('generes', isset($artista)
+                                ? $artista->generes->pluck('id')->toArray()
+                                : [])
+                        ))
+                >
+
+                <label for="genere_{{ $genere->id }}">
+                    {{ $genere->nom }}
+                </label>
+            </div>
+        @endforeach
+
+        @error('generes')
+        <p style="color: red;">{{ $message }}</p>
+        @enderror
+    </div>
+
+    <br>
+
+
+    <br>
+
     <button type="submit">Guardar artista</button>
 
 </form>

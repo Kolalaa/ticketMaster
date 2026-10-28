@@ -7,6 +7,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Database\Seeders\ArtistaSeeder;
 use Database\Seeders\ConcertSeeder;
+use Database\Seeders\GenereSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -25,6 +26,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $this->call([
+            GenereSeeder::class,
             ArtistaSeeder::class,
             EscenariSeeder::class,
             ConcertSeeder::class,

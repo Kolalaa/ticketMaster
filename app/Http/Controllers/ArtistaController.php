@@ -6,6 +6,7 @@ use App\Models\Artista;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
+use App\Models\Genere;
 
 class ArtistaController extends Controller
 {
@@ -14,7 +15,7 @@ class ArtistaController extends Controller
      */
     public function index(): View
     {
-        $artistes = Artista::orderBy('nom')->get();
+        $artistes = Artista::with('generes')->orderBy('nom')->get();
 
         return view('artistes.index', compact('artistes'));
     }
@@ -24,12 +25,15 @@ class ArtistaController extends Controller
      */
     public function create(): View
     {
-        return view('artistes.form');
+        $generes = Genere::orderBy('nom')->get();
+
+        return view('artistes.form', compact('generes'));
     }
 
     /**
      * Guardar artista nuevo.
      */
+
     public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
@@ -38,16 +42,23 @@ class ArtistaController extends Controller
             'bio' => 'nullable|string',
             'imatge_url' => 'nullable|url',
             'actiu' => 'sometimes|boolean',
+            'generes' => 'nullable|array',
+            'generes.*' => 'integer|exists:generes,id',
         ]);
 
         $validated['actiu'] = $request->boolean('actiu');
 
-        $artista = Artista::create($validated);
+        $artista = Artista::create(
+            collect($validated)->except('generes')->all()
+        );
+
+        $artista->generes()->sync($request->input('generes', []));
 
         return redirect()
             ->route('artistes.show', $artista)
             ->with('success', 'Artista creat correctament.');
     }
+
 
     /**
      * Mostrar artista.
@@ -62,12 +73,16 @@ class ArtistaController extends Controller
      */
     public function edit(Artista $artista): View
     {
-        return view('artistes.form', compact('artista'));
+        $generes = Genere::orderBy('nom')->get();
+        $artista->load('generes');
+
+        return view('artistes.form', compact('artista', 'generes'));
     }
 
     /**
      * Actualitzar artista.
      */
+
     public function update(
         Request $request,
         Artista $artista
@@ -78,16 +93,23 @@ class ArtistaController extends Controller
             'bio' => 'nullable|string',
             'imatge_url' => 'nullable|url',
             'actiu' => 'sometimes|boolean',
+            'generes' => 'nullable|array',
+            'generes.*' => 'integer|exists:generes,id',
         ]);
 
         $validated['actiu'] = $request->boolean('actiu');
 
-        $artista->update($validated);
+        $artista->update(
+            collect($validated)->except('generes')->all()
+        );
+
+        $artista->generes()->sync($request->input('generes', []));
 
         return redirect()
             ->route('artistes.show', $artista)
             ->with('success', 'Artista actualitzat correctament.');
     }
+
 
     /**
      * Eliminar artista.
