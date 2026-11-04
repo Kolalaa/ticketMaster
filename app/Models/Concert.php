@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Concert extends Model
 {
@@ -31,5 +32,10 @@ class Concert extends Model
     public function escenari()
     {
         return $this->belongsTo(Escenari::class);
+    }
+
+    public function entrades(): HasMany
+    {
+        return $this->hasMany(Entrada::class);
     }
 }
