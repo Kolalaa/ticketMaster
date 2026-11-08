@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Database\Seeders\ArtistaSeeder;
 use Database\Seeders\ConcertSeeder;
@@ -11,7 +11,7 @@ use Database\Seeders\GenereSeeder;
 
 class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
+    // use WithoutModelEvents;
 
     /**
      * Seed the application's database.
@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
             ArtistaSeeder::class,
             EscenariSeeder::class,
             ConcertSeeder::class,
+            EntradaSeeder::class,
         ]);
     }
 }
