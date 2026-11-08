@@ -33,7 +33,7 @@ class EntradaController extends Controller
         ]);
 
         return redirect()
-            ->route('entrades.mevesentrades')
+            ->route('entrades.meves')
             ->with('success', 'Entrada comprada correctament!');
     }
     public function assistents(Concert $concert): View

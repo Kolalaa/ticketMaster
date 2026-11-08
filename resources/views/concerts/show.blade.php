@@ -48,6 +48,23 @@
                 </p>
                 <p> <strong>Escenari:</strong> {{ $concert->escenari->nom }}</p>
                 <p> <strong>Aforament:</strong> {{ $concert->escenari->aforament_maxim }}</p>
+
+                <p> <strong>Aforament:</strong> {{ $concert->escenari->aforament_maxim }}</p>
+
+                <p>
+                    <strong>Entrades venudes:</strong>
+                    {{ $concert->entrades->count() }}
+                </p>
+
+                <a href="{{ route('entrades.create', $concert) }}" class="btn btn-success">
+                    Comprar entrada
+                </a>
+
+                <br>
+
+                <a href="{{ route('entrades.assistents', $concert) }}" class="btn btn-outline-primary">
+                    Veure assistents
+                </a>
             </div>
         </div>
 
