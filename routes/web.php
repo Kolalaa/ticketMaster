@@ -5,6 +5,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ArtistaController;
 use App\Http\Controllers\ConcertController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\EstadistiqueController;
+
 
 
 Route::get('/', function () {
@@ -39,6 +41,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/concerts/{concert}/comprar', [EntradaController::class, 'store'])->name('entrades.store');
     Route::get('/concerts/{concert}/assistents', [EntradaController::class, 'assistents'])->name('entrades.assistents');
 
+    Route::get('/estadistiques', [EstadistiqueController::class, 'index'])->name('estadistiques');
 });
 
 
