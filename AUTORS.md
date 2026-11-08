@@ -1,0 +1,3 @@
+-AARON : Bloque 1 y 4
+-RAUL : Bloque 2
+-DAVID : Bloque 3
